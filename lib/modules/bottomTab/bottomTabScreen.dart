@@ -5,6 +5,7 @@ import 'package:hahoon/modules/profile/profileScreen.dart';
 import 'package:hahoon/modules/test/testScreen.dart';
 
 class BottomTabScreen extends StatefulWidget {
+  static const String path = '/bottomTabScreen';
   @override
   _BottomTabScreenState createState() => _BottomTabScreenState();
 }

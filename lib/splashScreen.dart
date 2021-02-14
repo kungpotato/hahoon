@@ -16,6 +16,14 @@ class _SplashScreenState extends State<SplashScreen> {
         body: Stack(
           children: <Widget>[
             Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: [
+                    Colors.white,
+                    Colors.cyan[100],
+                  ])),
               foregroundDecoration: !AppTheme.isLightTheme
                   ? BoxDecoration(
                       color:
@@ -23,8 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
                   : null,
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              child: Image.asset('assets/images/introduction.jpg',
-                  fit: BoxFit.cover),
+              // child: Image.asset('assets/images/introduction.jpg',
+              //     fit: BoxFit.cover),
             ),
             Column(
               children: <Widget>[
@@ -34,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 Center(
                   child: Container(
-                    width: 200,
+                    width: 2000,
                     height: 200,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
@@ -51,7 +59,9 @@ class _SplashScreenState extends State<SplashScreen> {
                       borderRadius: BorderRadius.all(
                         Radius.circular(8.0),
                       ),
-                      child: Image.asset('assets/images/appIcon.png'),
+                      child: Image.asset(
+                        'assets/images/appIcon.png',
+                      ),
                     ),
                   ),
                 ),
@@ -62,6 +72,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   "การคิดลดกระแสเงินสด",
                   textAlign: TextAlign.left,
                   style: TextStyle(
+                    color: Colors.black54,
                     fontWeight: FontWeight.w600,
                     fontSize: 30,
                     shadows: <Shadow>[
@@ -76,8 +87,8 @@ class _SplashScreenState extends State<SplashScreen> {
                   height: 8,
                 ),
                 Text(
-                  "ประเมินมูลค่าหุ้นด้วยตัวคุณเอง",
-                  textAlign: TextAlign.left,
+                  "Discounted Cash Flow \n ประเมินมูลค่าหุ้นด้วยตัวคุณเอง",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20,
                     shadows: <Shadow>[
@@ -142,10 +153,10 @@ class _SplashScreenState extends State<SplashScreen> {
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.white,
+                      color: Colors.grey,
                       shadows: <Shadow>[
                         BoxShadow(
-                            color: Colors.grey,
+                            color: Colors.white,
                             offset: Offset(1, 1),
                             blurRadius: 10.0),
                       ],

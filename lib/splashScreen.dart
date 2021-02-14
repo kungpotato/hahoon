@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'introductionScreen.dart';
+
 import 'appTheme.dart';
+import 'introductionScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -17,8 +18,8 @@ class _SplashScreenState extends State<SplashScreen> {
             Container(
               foregroundDecoration: !AppTheme.isLightTheme
                   ? BoxDecoration(
-                  color:
-                  AppTheme.getTheme().backgroundColor.withOpacity(0.4))
+                      color:
+                          AppTheme.getTheme().backgroundColor.withOpacity(0.4))
                   : null,
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
@@ -33,18 +34,18 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 Center(
                   child: Container(
-                    width: 60,
-                    height: 60,
+                    width: 200,
+                    height: 200,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
                         Radius.circular(8.0),
                       ),
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                            color: AppTheme.getTheme().dividerColor,
-                            offset: Offset(1.1, 1.1),
-                            blurRadius: 10.0),
-                      ],
+                      // boxShadow: <BoxShadow>[
+                      //   BoxShadow(
+                      //       color: AppTheme.getTheme().dividerColor,
+                      //       offset: Offset(1.1, 1.1),
+                      //       blurRadius: 10.0),
+                      // ],
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.all(
@@ -55,24 +56,36 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 16,
+                  height: 2,
                 ),
                 Text(
-                  "Motel",
+                  "การคิดลดกระแสเงินสด",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    fontSize: 24,
+                    fontSize: 30,
+                    shadows: <Shadow>[
+                      BoxShadow(
+                          color: Colors.white,
+                          offset: Offset(1.5, 1.5),
+                          blurRadius: 10.0),
+                    ],
                   ),
                 ),
                 SizedBox(
                   height: 8,
                 ),
                 Text(
-                  "Best hotel deals for your holiday",
+                  "ประเมินมูลค่าหุ้นด้วยตัวคุณเอง",
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 20,
+                    shadows: <Shadow>[
+                      BoxShadow(
+                          color: Colors.white,
+                          offset: Offset(1.5, 1.5),
+                          blurRadius: 10.0),
+                    ],
                   ),
                 ),
                 Expanded(
@@ -109,10 +122,10 @@ class _SplashScreenState extends State<SplashScreen> {
                         },
                         child: Center(
                           child: Text(
-                            "Get started",
+                            "เริ่มต้นใช้งาน",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                fontSize: 16,
+                                fontSize: 20,
                                 color: Colors.white),
                           ),
                         ),
@@ -125,11 +138,17 @@ class _SplashScreenState extends State<SplashScreen> {
                       bottom: 24.0 + MediaQuery.of(context).padding.bottom,
                       top: 16),
                   child: Text(
-                    "Already have account? Log in",
+                    "หรือลงชื่อเข้าใช้งาน ด้วยบัญชีที่มีอยู่แล้ว",
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 16,
                       color: Colors.white,
+                      shadows: <Shadow>[
+                        BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(1, 1),
+                            blurRadius: 10.0),
+                      ],
                     ),
                   ),
                 ),

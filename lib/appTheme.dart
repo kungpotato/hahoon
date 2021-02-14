@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static bool isLightTheme = true;
-  static Color primaryColors = HexColor("#4FBE9F");
+  static Color primaryColors = HexColor("#3F7A63");
 
   static TextTheme _buildTextTheme(TextTheme base) {
-    var fontName = "WorkSans";
+    var fontName = "FC Iconic";
     return base.copyWith(
       headline6: base.headline6.copyWith(fontFamily: fontName),
       bodyText2: base.headline6.copyWith(fontFamily: fontName),

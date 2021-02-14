@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hahoon/modules/helpers/WidgetHelper.dart';
+
 import '../../appTheme.dart';
 import '../../main.dart';
 import 'loginScreen.dart';
@@ -27,7 +28,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                padding:
+                    EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                 child: appBar(),
               ),
               Expanded(
@@ -43,13 +45,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 width: 24,
                               ),
                               Expanded(
-                                child: getFTButton(),
+                                child: getFTButton(onTap: () {}),
                               ),
                               SizedBox(
                                 width: 16,
                               ),
                               Expanded(
-                                child: getFTButton(isFacebook: false),
+                                child: getFTButton(isFacebook: false,onTap: (){}),
                               ),
                               SizedBox(
                                 width: 24,
@@ -61,7 +63,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          "or log in with email",
+                          "หรือเข้าสู่ระบบด้วยอีเมล",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,
@@ -71,7 +73,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 24, right: 24, bottom: 16),
+                        padding: const EdgeInsets.only(
+                            left: 24, right: 24, bottom: 16),
                         child: Container(
                           decoration: BoxDecoration(
                             color: AppTheme.getTheme().backgroundColor,
@@ -99,8 +102,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   decoration: new InputDecoration(
                                     errorText: null,
                                     border: InputBorder.none,
-                                    hintText: "Firet Name",
-                                    hintStyle: TextStyle(color: AppTheme.getTheme().disabledColor),
+                                    hintText: "ชื่อ",
+                                    hintStyle: TextStyle(
+                                        color:
+                                            AppTheme.getTheme().disabledColor),
                                   ),
                                 ),
                               ),
@@ -109,7 +114,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 24, right: 24, bottom: 16),
+                        padding: const EdgeInsets.only(
+                            left: 24, right: 24, bottom: 16),
                         child: Container(
                           decoration: BoxDecoration(
                             color: AppTheme.getTheme().backgroundColor,
@@ -137,8 +143,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   decoration: new InputDecoration(
                                     errorText: null,
                                     border: InputBorder.none,
-                                    hintText: "Last Name",
-                                    hintStyle: TextStyle(color: AppTheme.getTheme().disabledColor),
+                                    hintText: "นามสกุล",
+                                    hintStyle: TextStyle(
+                                        color:
+                                            AppTheme.getTheme().disabledColor),
                                   ),
                                 ),
                               ),
@@ -175,8 +183,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   decoration: new InputDecoration(
                                     errorText: null,
                                     border: InputBorder.none,
-                                    hintText: "Your Email",
-                                    hintStyle: TextStyle(color: AppTheme.getTheme().disabledColor),
+                                    hintText: "อีเมล",
+                                    hintStyle: TextStyle(
+                                        color:
+                                            AppTheme.getTheme().disabledColor),
                                   ),
                                 ),
                               ),
@@ -185,7 +195,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
+                        padding:
+                            const EdgeInsets.only(left: 24, right: 24, top: 16),
                         child: Container(
                           decoration: BoxDecoration(
                             color: AppTheme.getTheme().backgroundColor,
@@ -213,8 +224,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   decoration: new InputDecoration(
                                     errorText: null,
                                     border: InputBorder.none,
-                                    hintText: "Password",
-                                    hintStyle: TextStyle(color: AppTheme.getTheme().disabledColor),
+                                    hintText: "รหัสผ่าน",
+                                    hintStyle: TextStyle(
+                                        color:
+                                            AppTheme.getTheme().disabledColor),
                                   ),
                                 ),
                               ),
@@ -223,12 +236,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 24, right: 24, bottom: 8, top: 24),
+                        padding: const EdgeInsets.only(
+                            left: 24, right: 24, bottom: 8, top: 24),
                         child: Container(
                           height: 48,
                           decoration: BoxDecoration(
                             color: AppTheme.getTheme().primaryColor,
-                            borderRadius: BorderRadius.all(Radius.circular(24.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(24.0)),
                             boxShadow: <BoxShadow>[
                               BoxShadow(
                                 color: AppTheme.getTheme().dividerColor,
@@ -240,15 +255,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              borderRadius: BorderRadius.all(Radius.circular(24.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(24.0)),
                               highlightColor: Colors.transparent,
                               onTap: () {
-                                Navigator.pushNamedAndRemoveUntil(context, Routes.TabScreen, (Route<dynamic> route) => false);
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    Routes.TabScreen,
+                                    (Route<dynamic> route) => false);
                               },
                               child: Center(
                                 child: Text(
-                                  "Sign up",
-                                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: Colors.white),
+                                  "ลงทะเบียน",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                      color: Colors.white),
                                 ),
                               ),
                             ),
@@ -258,7 +280,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          "By signing up, you agreed with our terms of\nServices and privacy Policy",
+                          "ลงทะเบียนและยินยอมในข้อตกลง\n นโบบายความเป็นส่วนตัว",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,
@@ -272,7 +294,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            "Already have account?.",
+                            "มีบัญชีแล้ว",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 14,
@@ -285,13 +307,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => LoginScreen()),
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()),
                               );
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                "Log in",
+                                "เข้าสู่ระบบ",
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
@@ -310,47 +333,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               )
             ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget getFTButton({bool isFacebook: true}) {
-    return Container(
-      height: 48,
-      decoration: BoxDecoration(
-        color: HexColor(isFacebook ? "#3C5799" : "#05A9F0"),
-        borderRadius: BorderRadius.all(Radius.circular(24.0)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: AppTheme.getTheme().dividerColor,
-            blurRadius: 8,
-            offset: Offset(4, 4),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.all(Radius.circular(24.0)),
-          highlightColor: Colors.transparent,
-          onTap: () {},
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Icon(isFacebook ? FontAwesomeIcons.facebookF : FontAwesomeIcons.twitter, size: 20, color: Colors.white),
-                SizedBox(
-                  width: 4,
-                ),
-                Text(
-                  isFacebook ? "Facebook" : "Twitter",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: Colors.white),
-                ),
-              ],
-            ),
           ),
         ),
       ),
@@ -390,7 +372,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         Padding(
           padding: const EdgeInsets.only(top: 4, left: 24),
           child: Text(
-            "Sign Up",
+            "ลงทะเบียน",
             style: new TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w700,

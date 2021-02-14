@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../appTheme.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -24,7 +25,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                padding:
+                    EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                 child: appBar(),
               ),
               Expanded(
@@ -32,11 +34,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   child: Column(
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(top: 16.0, bottom: 16.0, left: 24, right: 24),
+                        padding: const EdgeInsets.only(
+                            top: 16.0, bottom: 16.0, left: 24, right: 24),
                         child: Row(
                           children: <Widget>[
                             Text(
-                              "Enter your email to receive an email to\nreset your password",
+                              "กรุณาใส่อีเมลพื่อกู้คืนรหัสผ่าน",
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 fontSize: 14,
@@ -69,7 +72,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             child: Container(
                               height: 48,
                               child: Center(
-                                child:TextField(
+                                child: TextField(
                                   maxLines: 1,
                                   onChanged: (String txt) {},
                                   style: TextStyle(
@@ -79,20 +82,26 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                   decoration: new InputDecoration(
                                     errorText: null,
                                     border: InputBorder.none,
-                                    hintText: "Your Email",
-                                    hintStyle: TextStyle(color: AppTheme.getTheme().disabledColor),
+                                    hintText: "อีเมล",
+                                    hintStyle: TextStyle(
+                                        color:
+                                            AppTheme.getTheme().disabledColor),
                                   ),
-                                ),),),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 24, right: 24, bottom: 8, top: 16),
+                        padding: const EdgeInsets.only(
+                            left: 24, right: 24, bottom: 8, top: 16),
                         child: Container(
                           height: 48,
                           decoration: BoxDecoration(
                             color: AppTheme.getTheme().primaryColor,
-                            borderRadius: BorderRadius.all(Radius.circular(24.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(24.0)),
                             boxShadow: <BoxShadow>[
                               BoxShadow(
                                 color: AppTheme.getTheme().dividerColor,
@@ -104,15 +113,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              borderRadius: BorderRadius.all(Radius.circular(24.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(24.0)),
                               highlightColor: Colors.transparent,
                               onTap: () {
                                 Navigator.pop(context);
                               },
                               child: Center(
                                 child: Text(
-                                  "Send",
-                                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: Colors.white),
+                                  "ส่ง",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                      color: Colors.white),
                                 ),
                               ),
                             ),
@@ -163,7 +176,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         Padding(
           padding: const EdgeInsets.only(top: 4, left: 24),
           child: Text(
-            "Forgot Password",
+            "ลืมรหัสผ่าน",
             style: new TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w700,

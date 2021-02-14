@@ -22,26 +22,24 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   @override
   void initState() {
     pageViewModelData.add(PageViewData(
-      titleText: 'Plan your trips',
-      subText: 'book one of your unique hotel to\nescape the ordinary',
-      assetsImage: 'assets/images/introduction1.png',
+      titleText: '1. ประเมินการเติบโดของรายได้ปีข้างหน้า',
+      subText: 'ฟังจากผู้บริหารหรือบทวิเคราะห์',
+      assetsImage: 'assets/images/slide1.png',
     ));
 
     pageViewModelData.add(PageViewData(
-      titleText: 'Find best deals',
-      subText:
-          'Find deals for any season from cosy\ncountry homes to city flats',
-      assetsImage: 'assets/images/introduction2.png',
+      titleText: '2. หามูลค่าปัจจุบัน',
+      subText: 'นำตัวเลขงบการเงินมาหามูลค่าที่เหมาะสม',
+      assetsImage: 'assets/images/slide2.png',
     ));
 
     pageViewModelData.add(PageViewData(
-      titleText: 'Best travelling all time',
-      subText:
-          'Find deals for any season from cosy\ncountry homes to city flats',
-      assetsImage: 'assets/images/introduction3.png',
+      titleText: '3. คำนวน up size',
+      subText: 'นำ up size ที่ได้ มาประกอบการตัดสินใจซื้อหุ้น',
+      assetsImage: 'assets/images/slide3.png',
     ));
 
-    sliderTimer = Timer.periodic(Duration(seconds: 4), (timer) {
+    sliderTimer = Timer.periodic(Duration(seconds: 5), (timer) {
       if (currentShowIndex == 0) {
         pageController.animateTo(MediaQuery.of(context).size.width,
             duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
@@ -125,7 +123,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                     },
                     child: Center(
                       child: Text(
-                        "Login",
+                        "เข้าสู่ระบบ",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
@@ -165,7 +163,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                     },
                     child: Center(
                       child: Text(
-                        "create account",
+                        "สร้างบัญชีใหม่",
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 16),
                       ),

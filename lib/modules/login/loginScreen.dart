@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hahoon/main.dart';
+import 'package:hahoon/modules/helpers/WidgetHelper.dart';
 import 'package:hahoon/modules/login/forgotPasswordScreen.dart';
-import '../../appTheme.dart';
 
+import '../../appTheme.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -28,7 +28,8 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                padding:
+                    EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                 child: appBar(),
               ),
               Expanded(
@@ -44,13 +45,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 width: 24,
                               ),
                               Expanded(
-                                child: getFTButton(),
+                                child: getFTButton(onTap: () {}),
                               ),
                               SizedBox(
                                 width: 16,
                               ),
                               Expanded(
-                                child: getFTButton(isFacebook: false),
+                                child: getFTButton(
+                                    isFacebook: false, onTap: () {}),
                               ),
                               SizedBox(
                                 width: 24,
@@ -62,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          "or log in with email",
+                          "หรือเข้าสู่ระบบด้วยอีเมล",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,
@@ -73,46 +75,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 24, right: 24),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppTheme.getTheme().backgroundColor,
-                            borderRadius: BorderRadius.all(Radius.circular(38)),
-                            // border: Border.all(
-                            //   color: HexColor("#757575").withOpacity(0.6),
-                            // ),
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: AppTheme.getTheme().dividerColor,
-                                blurRadius: 8,
-                                offset: Offset(4, 4),
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 16, right: 16),
-                            child:Container(
-                              height: 48,
-                              child: Center(
-                                child: TextField(
-                                  maxLines: 1,
-                                  onChanged: (String txt) {},
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    // color: AppTheme.dark_grey,
-                                  ),
-                                  cursorColor: AppTheme.getTheme().primaryColor,
-                                  decoration: new InputDecoration(
-                                    errorText: null,
-                                    border: InputBorder.none,
-                                    hintText: "Your Email",
-                                    hintStyle: TextStyle(color: AppTheme.getTheme().disabledColor),
-                                  ),),),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
                         child: Container(
                           decoration: BoxDecoration(
                             color: AppTheme.getTheme().backgroundColor,
@@ -144,8 +106,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   decoration: new InputDecoration(
                                     errorText: null,
                                     border: InputBorder.none,
-                                    hintText: "Password",
-                                    hintStyle: TextStyle(color: AppTheme.getTheme().disabledColor),
+                                    hintText: "อีเมล",
+                                    hintStyle: TextStyle(
+                                        color:
+                                            AppTheme.getTheme().disabledColor),
                                   ),
                                 ),
                               ),
@@ -154,23 +118,72 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 8, right: 16, bottom: 8),
+                        padding:
+                            const EdgeInsets.only(left: 24, right: 24, top: 16),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppTheme.getTheme().backgroundColor,
+                            borderRadius: BorderRadius.all(Radius.circular(38)),
+                            // border: Border.all(
+                            //   color: HexColor("#757575").withOpacity(0.6),
+                            // ),
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                color: AppTheme.getTheme().dividerColor,
+                                blurRadius: 8,
+                                offset: Offset(4, 4),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 16, right: 16),
+                            child: Container(
+                              height: 48,
+                              child: Center(
+                                child: TextField(
+                                  maxLines: 1,
+                                  onChanged: (String txt) {},
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    // color: AppTheme.dark_grey,
+                                  ),
+                                  cursorColor: AppTheme.getTheme().primaryColor,
+                                  decoration: new InputDecoration(
+                                    errorText: null,
+                                    border: InputBorder.none,
+                                    hintText: "รหัสผ่าน",
+                                    hintStyle: TextStyle(
+                                        color:
+                                            AppTheme.getTheme().disabledColor),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 8, right: 16, bottom: 8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             InkWell(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => ForgotPasswordScreen()),
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ForgotPasswordScreen()),
                                 );
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  "Forgot your password?",
+                                  "ลืมหรัสผ่าน",
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -183,12 +196,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 24, right: 24, bottom: 8, top: 8),
+                        padding: const EdgeInsets.only(
+                            left: 24, right: 24, bottom: 8, top: 8),
                         child: Container(
                           height: 48,
                           decoration: BoxDecoration(
                             color: AppTheme.getTheme().primaryColor,
-                            borderRadius: BorderRadius.all(Radius.circular(24.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(24.0)),
                             boxShadow: <BoxShadow>[
                               BoxShadow(
                                 color: AppTheme.getTheme().dividerColor,
@@ -200,17 +215,24 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              borderRadius: BorderRadius.all(Radius.circular(24.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(24.0)),
                               highlightColor: Colors.transparent,
                               onTap: () {
                                 // Navigator.pushAndRemoveUntil(context, Routes.SPLASH, (Route<dynamic> route) => false);
-                                Navigator.pushNamedAndRemoveUntil(context, Routes.TabScreen, (Route<dynamic> route) => false);
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    Routes.TabScreen,
+                                    (Route<dynamic> route) => false);
                                 // Navigator.pushReplacementNamed(context, Routes.TabScreen);
                               },
                               child: Center(
                                 child: Text(
-                                  "Login",
-                                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: Colors.white),
+                                  "เข้าสู่ระบบ",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                      color: Colors.white),
                                 ),
                               ),
                             ),
@@ -222,47 +244,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               )
             ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget getFTButton({bool isFacebook: true}) {
-    return Container(
-      height: 48,
-      decoration: BoxDecoration(
-        color: HexColor(isFacebook ? "#3C5799" : "#05A9F0"),
-        borderRadius: BorderRadius.all(Radius.circular(24.0)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: AppTheme.getTheme().dividerColor,
-            blurRadius: 8,
-            offset: Offset(4, 4),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.all(Radius.circular(24.0)),
-          highlightColor: Colors.transparent,
-          onTap: () {},
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Icon(isFacebook ? FontAwesomeIcons.facebookF : FontAwesomeIcons.twitter, size: 20, color: Colors.white),
-                SizedBox(
-                  width: 4,
-                ),
-                Text(
-                  isFacebook ? "Facebook" : "Twitter",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: Colors.white),
-                ),
-              ],
-            ),
           ),
         ),
       ),
@@ -302,7 +283,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Padding(
           padding: const EdgeInsets.only(top: 4, left: 24),
           child: Text(
-            "Log in",
+            "เข้าสู่ระบบ",
             style: new TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w700,

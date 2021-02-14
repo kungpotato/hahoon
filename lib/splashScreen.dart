@@ -69,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   height: 2,
                 ),
                 Text(
-                  "การคิดลดกระแสเงินสด",
+                  "หามูลค่าหุ้นด้วยตัวเอง",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.black54,
@@ -87,7 +87,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   height: 8,
                 ),
                 Text(
-                  "Discounted Cash Flow \n ประเมินมูลค่าหุ้นด้วยตัวคุณเอง",
+                  "การคิดลดกระแสเงินสด \n ( Discounted Cash Flow )",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20,

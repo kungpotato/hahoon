@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hahoon/main.dart';
+import 'package:hahoon/models/userData.dart';
 import 'package:hahoon/modules/helpers/WidgetHelper.dart';
 import 'package:hahoon/modules/login/forgotPasswordScreen.dart';
+import 'package:hahoon/stores/authStore.dart';
+import 'package:provider/provider.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../appTheme.dart';
 
@@ -11,6 +17,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool isSubmit = false;
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -96,6 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 48,
                               child: Center(
                                 child: TextField(
+                                  controller: emailController,
                                   maxLines: 1,
                                   onChanged: (String txt) {},
                                   style: TextStyle(
@@ -141,6 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 48,
                               child: Center(
                                 child: TextField(
+                                  controller: passwordController,
                                   maxLines: 1,
                                   onChanged: (String txt) {},
                                   style: TextStyle(
@@ -220,11 +233,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               highlightColor: Colors.transparent,
                               onTap: () {
                                 // Navigator.pushAndRemoveUntil(context, Routes.SPLASH, (Route<dynamic> route) => false);
-                                Navigator.pushNamedAndRemoveUntil(
-                                    context,
-                                    Routes.TabScreen,
-                                    (Route<dynamic> route) => false);
+
+                                // Navigator.pushNamedAndRemoveUntil(
+                                //     context,
+                                //     Routes.TabScreen,
+                                //     (Route<dynamic> route) => false);
+
                                 // Navigator.pushReplacementNamed(context, Routes.TabScreen);
+                                _submitForm();
                               },
                               child: Center(
                                 child: Text(
@@ -248,6 +264,52 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void _submitForm() async {
+    if (mounted) setState(() => isSubmit = true);
+    final authStore = Provider.of<AuthStore>(context, listen: false);
+    final pref = await SharedPreferences.getInstance();
+    authStore
+        .signInWithCloud(
+            emailController.value.text, passwordController.value.text)
+        .flatMap((value) =>
+            Stream.fromFuture(authStore.getFireBaseToken()).flatMap((token) {
+              pref.setString('authToken', token);
+              final client = emailController.value.text.split('@');
+              return authStore
+                  .getDbUser(value.user.uid, client[1])
+                  .flatMap((dbUser) {
+                if (dbUser.username != null) {
+                  final user =
+                      UserData.fromMap({...dbUser.toMap(), 'authToken': token});
+                  return authStore.updateDbUser(dbUser.selfRef, user);
+                } else {
+                  return Stream.value(value);
+                }
+              });
+            }))
+        .listen((res) {
+      print(res);
+      Navigator.pushNamedAndRemoveUntil(
+          context, Routes.TabScreen, (Route<dynamic> route) => false);
+    }, onError: (e) {
+      if (mounted) setState(() => isSubmit = false);
+      String errMsg = e.toString();
+      print('err=>$e');
+      if (e is PlatformException) {
+        final PlatformException err = e;
+        errMsg = err.details['message'] == 'INTERNAL'
+            ? 'Please, check internet connetion'
+            : err.details['message'];
+      } else if (e is Map) {
+        print('err=>${e['code']}');
+        if (e['code'] == 500) errMsg = 'Wrong username or password';
+      } else {
+        print('err=>$e');
+      }
+      print(errMsg);
+    });
   }
 
   Widget appBar() {

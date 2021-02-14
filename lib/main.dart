@@ -1,19 +1,52 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hahoon/appTheme.dart';
 import 'package:hahoon/modules/bottomTab/bottomTabScreen.dart';
 import 'package:hahoon/splashScreen.dart';
-
-GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+import 'package:hahoon/stores/authStore.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FirebaseApp app = await Firebase.initializeApp();
+  assert(app != null);
+  print('Initialized default app $app');
+  if (kDebugMode) {
+    // Force disable Crashlytics collection while doing every day development.
+    // Temporarily toggle this to true if you want to test crash reporting in your app.
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+  } else {
+    // Handle Crashlytics enabled status when not in Debug,
+    // e.g. allow your users to opt-in to crash reporting.
+  }
+  if (FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) {
+    // Collection is enabled.
+  }
+  print(
+      'CrashlyticsCollectionEnabled==>${FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled}');
+  FirebaseFirestore.instance.settings = Settings(persistenceEnabled: false);
   await SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
-      .then((_) => runApp(MyApp()));
+      .then((_) => runZonedGuarded(() {
+            runApp(Root());
+          }, (error, stackTrace) {
+            print('runZonedGuarded: Caught error in my root zone.');
+            FirebaseCrashlytics.instance.recordError(error, stackTrace);
+          }));
 }
 
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+
   static restartApp(BuildContext context) {
     final _MyAppState state = context.findAncestorStateOfType<_MyAppState>();
 
@@ -24,26 +57,20 @@ class MyApp extends StatefulWidget {
     final _MyAppState state = context.findAncestorStateOfType<_MyAppState>();
     state.setCustomTheme();
   }
+}
 
-  @override
-  _MyAppState createState() => _MyAppState();
+class Routes {
+  static const String SPLASH = "/";
+  static const String TabScreen = BottomTabScreen.path;
 }
 
 class _MyAppState extends State<MyApp> {
   Key key = UniqueKey();
 
-  void restartApp() {
-    this.setState(() {
-      navigatorKey = GlobalKey<NavigatorState>();
-      key = UniqueKey();
-    });
-  }
-
-  void setCustomTheme() {
-    setState(() {
-      AppTheme.isLightTheme = !AppTheme.isLightTheme;
-    });
-  }
+  var routes = <String, WidgetBuilder>{
+    Routes.SPLASH: (BuildContext context) => SplashScreen(),
+    Routes.TabScreen: (BuildContext context) => BottomTabScreen(),
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -90,13 +117,29 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  var routes = <String, WidgetBuilder>{
-    Routes.SPLASH: (BuildContext context) => SplashScreen(),
-    Routes.TabScreen: (BuildContext context) => BottomTabScreen(),
-  };
+  void restartApp() {
+    this.setState(() {
+      navigatorKey = GlobalKey<NavigatorState>();
+      key = UniqueKey();
+    });
+  }
+
+  void setCustomTheme() {
+    setState(() {
+      AppTheme.isLightTheme = !AppTheme.isLightTheme;
+    });
+  }
 }
 
-class Routes {
-  static const String SPLASH = "/";
-  static const String TabScreen = BottomTabScreen.path;
+class Root extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        Provider<AuthStore>.value(value: AuthStore()),
+        // Provider<UserStore>.value(value: UserStore()),
+      ],
+      child: MyApp(),
+    );
+  }
 }

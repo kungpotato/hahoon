@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1063810398219",
+    "project_id": "hahoon-e35a1",
+    "storage_bucket": "hahoon-e35a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063810398219:android:5da4aee71d03cca7012f0e",
+        "android_client_info": {
+          "package_name": "com.kittisak.hahoon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063810398219-4to2cb953rf7i50g5nsl7apa8j97ke96.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kittisak.hahoon",
+            "certificate_hash": "2942ad7c9d4a75065f39638adb1d57f9e0cc2eb5"
+          }
+        },
+        {
+          "client_id": "1063810398219-1rortjmpp9muuh73qv970jvbptsku807.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxLkRAAld5zSqypSrPh5IzaKMJAYfJYxs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063810398219-1rortjmpp9muuh73qv970jvbptsku807.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

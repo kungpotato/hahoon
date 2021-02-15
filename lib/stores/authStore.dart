@@ -3,7 +3,9 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:hahoon/models/userData.dart';
+import 'package:hahoon/modules/helpers/api.dart';
 import 'package:mobx/mobx.dart';
+import 'package:requests/requests.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -71,21 +73,39 @@ abstract class _AuthStore with Store {
     }
   }
 
-  Stream<UserData> snapshotDbUser(String uid, String client) {
-    final userRef = FirebaseFirestore.instance.doc('client/$client/users/$uid');
-    return userRef.snapshots().map((doc) {
-      return UserData.fromMap(
-          {'id': doc.id, 'selfRef': doc.reference, ...doc.data()});
-    }).defaultIfEmpty(UserData(createAt: Timestamp.now()));
+  Stream<Response> createUSer(String fullName, String email, String password) {
+    final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+        'CreateUser',
+        options: HttpsCallableOptions(timeout: Duration(seconds: 5)));
+    final dataSave = UserData(
+        fullName: fullName,
+        password: password,
+        email: email,
+        createAt: Timestamp.now());
+    final response = Stream.fromFuture(Requests.post(API.createUser,
+            body: dataSave.toMap(),
+            bodyEncoding: RequestBodyEncoding.FormURLEncoded))
+        .flatMap((resp) {
+      return Stream.value(resp);
+    });
+    return response;
   }
 
-  Stream<UserData> getDbUser(String uid, String client) {
-    final userRef = FirebaseFirestore.instance.doc('client/$client/users/$uid');
-    return Stream.fromFuture(userRef.get()).map((doc) {
-      return UserData.fromMap(
-          {'id': doc.id, 'selfRef': doc.reference, ...doc.data()});
-    }).defaultIfEmpty(UserData(createAt: Timestamp.now()));
-  }
+  // Stream<UserData> snapshotDbUser(String uid, String client) {
+  //   final userRef = FirebaseFirestore.instance.doc('client/$client/users/$uid');
+  //   return userRef.snapshots().map((doc) {
+  //     return UserData.fromMap(
+  //         {'id': doc.id, 'selfRef': doc.reference, ...doc.data()});
+  //   }).defaultIfEmpty(UserData(createAt: Timestamp.now()));
+  // }
+
+  // Stream<UserData> getDbUser(String uid, String client) {
+  //   final userRef = FirebaseFirestore.instance.doc('client/$client/users/$uid');
+  //   return Stream.fromFuture(userRef.get()).map((doc) {
+  //     return UserData.fromMap(
+  //         {'id': doc.id, 'selfRef': doc.reference, ...doc.data()});
+  //   }).defaultIfEmpty(UserData(createAt: Timestamp.now()));
+  // }
 
   Stream updateDbUser(DocumentReference ref, UserData data) {
     return Stream.fromFuture(ref.update(data.toMap()));

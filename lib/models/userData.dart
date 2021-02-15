@@ -1,25 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:hahoon/models/baseData.dart';
 
 class UserData extends BaseData {
-  final String username;
+  final String fullName;
   final String password;
   final String email;
-  final String avatar;
-  final String name;
-  final String surname;
-  final String phone;
-  final String authToken;
 
   UserData(
-      {this.username,
-      this.password,
-      this.email,
-      this.phone,
-      this.avatar,
-      this.name,
-      this.surname,
-      this.authToken,
+      {@required this.fullName,
+      @required this.password,
+      @required this.email,
       Timestamp createAt,
       Timestamp deleteAt,
       Timestamp updateAt,
@@ -35,27 +26,17 @@ class UserData extends BaseData {
             selfRef: selfRef);
 
   UserData.fromMap(Map<String, dynamic> data)
-      : username = data['username'],
+      : fullName = data['fullName'],
         password = data['password'],
         email = data['email'],
-        avatar = data['avatar'],
-        name = data['name'],
-        surname = data['surname'],
-        phone = data['phone'],
-        authToken = data['authToken'],
         super.fromMap(data);
 
   Map<String, dynamic> toMap() {
     return {
       ...super.toMap(),
-      'username': username,
+      'fullName': fullName,
       'password': password,
       'email': email,
-      'avatar': avatar,
-      'name': name,
-      'surname': surname,
-      'phone': phone,
-      'authToken': authToken
     };
   }
 }

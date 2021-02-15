@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hahoon/main.dart';
 import 'package:hahoon/modules/helpers/WidgetHelper.dart';
+import 'package:hahoon/stores/authStore.dart';
+import 'package:provider/provider.dart';
 
 import '../../appTheme.dart';
-import '../../main.dart';
 import 'loginScreen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -11,6 +13,11 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final nameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,7 +58,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 width: 16,
                               ),
                               Expanded(
-                                child: getFTButton(isFacebook: false,onTap: (){}),
+                                child: getFTButton(
+                                    isFacebook: false, onTap: () {}),
                               ),
                               SizedBox(
                                 width: 24,
@@ -93,6 +101,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               height: 48,
                               child: Center(
                                 child: TextField(
+                                  controller: nameController,
                                   maxLines: 1,
                                   onChanged: (String txt) {},
                                   style: TextStyle(
@@ -134,6 +143,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               height: 48,
                               child: Center(
                                 child: TextField(
+                                  controller: lastNameController,
                                   maxLines: 1,
                                   onChanged: (String txt) {},
                                   style: TextStyle(
@@ -174,6 +184,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               height: 48,
                               child: Center(
                                 child: TextField(
+                                  controller: emailController,
                                   maxLines: 1,
                                   onChanged: (String txt) {},
                                   style: TextStyle(
@@ -215,6 +226,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               height: 48,
                               child: Center(
                                 child: TextField(
+                                  controller: passwordController,
                                   maxLines: 1,
                                   onChanged: (String txt) {},
                                   style: TextStyle(
@@ -259,10 +271,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   BorderRadius.all(Radius.circular(24.0)),
                               highlightColor: Colors.transparent,
                               onTap: () {
-                                Navigator.pushNamedAndRemoveUntil(
+                                final authStore = Provider.of<AuthStore>(
                                     context,
-                                    Routes.TabScreen,
-                                    (Route<dynamic> route) => false);
+                                    listen: false);
+                                authStore
+                                    .createUSer(
+                                        '${nameController.value.text} ${lastNameController.value.text}',
+                                        emailController.value.text,
+                                        passwordController.value.text)
+                                    .listen((res) {
+                                  print(res);
+                                  if (res.statusCode == 201) {
+                                    print(res.json());
+                                  } else if (res.statusCode == 200) {
+                                    Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        Routes.TabScreen,
+                                        (Route<dynamic> route) => false);
+                                  }
+                                }, onError: (err) {
+                                  print(err.toString());
+                                });
                               },
                               child: Center(
                                 child: Text(

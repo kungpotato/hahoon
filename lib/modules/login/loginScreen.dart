@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:hahoon/main.dart';
-import 'package:hahoon/models/userData.dart';
 import 'package:hahoon/modules/helpers/WidgetHelper.dart';
 import 'package:hahoon/modules/login/forgotPasswordScreen.dart';
 import 'package:hahoon/stores/authStore.dart';
 import 'package:provider/provider.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../appTheme.dart';
@@ -270,46 +266,46 @@ class _LoginScreenState extends State<LoginScreen> {
     if (mounted) setState(() => isSubmit = true);
     final authStore = Provider.of<AuthStore>(context, listen: false);
     final pref = await SharedPreferences.getInstance();
-    authStore
-        .signInWithCloud(
-            emailController.value.text, passwordController.value.text)
-        .flatMap((value) =>
-            Stream.fromFuture(authStore.getFireBaseToken()).flatMap((token) {
-              pref.setString('authToken', token);
-              final client = emailController.value.text.split('@');
-              return authStore
-                  .getDbUser(value.user.uid, client[1])
-                  .flatMap((dbUser) {
-                if (dbUser.username != null) {
-                  final user =
-                      UserData.fromMap({...dbUser.toMap(), 'authToken': token});
-                  return authStore.updateDbUser(dbUser.selfRef, user);
-                } else {
-                  return Stream.value(value);
-                }
-              });
-            }))
-        .listen((res) {
-      print(res);
-      Navigator.pushNamedAndRemoveUntil(
-          context, Routes.TabScreen, (Route<dynamic> route) => false);
-    }, onError: (e) {
-      if (mounted) setState(() => isSubmit = false);
-      String errMsg = e.toString();
-      print('err=>$e');
-      if (e is PlatformException) {
-        final PlatformException err = e;
-        errMsg = err.details['message'] == 'INTERNAL'
-            ? 'Please, check internet connetion'
-            : err.details['message'];
-      } else if (e is Map) {
-        print('err=>${e['code']}');
-        if (e['code'] == 500) errMsg = 'Wrong username or password';
-      } else {
-        print('err=>$e');
-      }
-      print(errMsg);
-    });
+    // authStore
+    //     .signInWithCloud(
+    //         emailController.value.text, passwordController.value.text)
+    //     .flatMap((value) =>
+    //         Stream.fromFuture(authStore.getFireBaseToken()).flatMap((token) {
+    //           pref.setString('authToken', token);
+    //           final client = emailController.value.text.split('@');
+    //           return authStore
+    //               .getDbUser(value.user.uid, client[1])
+    //               .flatMap((dbUser) {
+    //             if (dbUser.username != null) {
+    //               final user =
+    //                   UserData.fromMap({...dbUser.toMap(), 'authToken': token});
+    //               return authStore.updateDbUser(dbUser.selfRef, user);
+    //             } else {
+    //               return Stream.value(value);
+    //             }
+    //           });
+    //         }))
+    //     .listen((res) {
+    //   print(res);
+    //   Navigator.pushNamedAndRemoveUntil(
+    //       context, Routes.TabScreen, (Route<dynamic> route) => false);
+    // }, onError: (e) {
+    //   if (mounted) setState(() => isSubmit = false);
+    //   String errMsg = e.toString();
+    //   print('err=>$e');
+    //   if (e is PlatformException) {
+    //     final PlatformException err = e;
+    //     errMsg = err.details['message'] == 'INTERNAL'
+    //         ? 'Please, check internet connetion'
+    //         : err.details['message'];
+    //   } else if (e is Map) {
+    //     print('err=>${e['code']}');
+    //     if (e['code'] == 500) errMsg = 'Wrong username or password';
+    //   } else {
+    //     print('err=>$e');
+    //   }
+    //   print(errMsg);
+    // });
   }
 
   Widget appBar() {

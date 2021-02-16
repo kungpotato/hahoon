@@ -64,6 +64,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: AppTheme.getTheme().backgroundColor,
         body: Column(
           children: <Widget>[

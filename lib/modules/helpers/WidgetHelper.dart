@@ -50,3 +50,11 @@ Widget getFTButton({bool isFacebook: true, @required Function onTap}) {
     ),
   );
 }
+
+Widget loader() {
+  return Center(
+    child: CircularProgressIndicator(
+      backgroundColor: Colors.white,
+    ),
+  );
+}

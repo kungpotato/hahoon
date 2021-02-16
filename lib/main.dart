@@ -17,19 +17,19 @@ void main() async {
   FirebaseApp app = await Firebase.initializeApp();
   assert(app != null);
   print('Initialized default app $app');
-  if (kDebugMode) {
-    // Force disable Crashlytics collection while doing every day development.
-    // Temporarily toggle this to true if you want to test crash reporting in your app.
+  if (!kReleaseMode) {
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+    // FirebaseCrashlytics.instance.crash();
   } else {
-    // Handle Crashlytics enabled status when not in Debug,
-    // e.g. allow your users to opt-in to crash reporting.
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   }
+
   if (FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) {
     // Collection is enabled.
+
+    // throw Exception("Error on test");
   }
-  print(
-      'CrashlyticsCollectionEnabled==>${FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled}');
+
   FirebaseFirestore.instance.settings = Settings(persistenceEnabled: false);
   await SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
@@ -41,22 +41,9 @@ void main() async {
           }));
 }
 
-GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
-
-  static restartApp(BuildContext context) {
-    final _MyAppState state = context.findAncestorStateOfType<_MyAppState>();
-
-    state.restartApp();
-  }
-
-  static setCustomTheme(BuildContext context) {
-    final _MyAppState state = context.findAncestorStateOfType<_MyAppState>();
-    state.setCustomTheme();
-  }
 }
 
 class Routes {
@@ -65,8 +52,6 @@ class Routes {
 }
 
 class _MyAppState extends State<MyApp> {
-  Key key = UniqueKey();
-
   var routes = <String, WidgetBuilder>{
     Routes.SPLASH: (BuildContext context) => SplashScreen(),
     Routes.TabScreen: (BuildContext context) => BottomTabScreen(),
@@ -87,10 +72,8 @@ class _MyAppState extends State<MyApp> {
           AppTheme.isLightTheme ? Brightness.dark : Brightness.light,
     ));
     return Container(
-      key: key,
       color: AppTheme.getTheme().backgroundColor,
       child: MaterialApp(
-          navigatorKey: navigatorKey,
           title: 'Hahoon',
           debugShowCheckedModeBanner: false,
           theme: AppTheme.getTheme(),
@@ -115,19 +98,6 @@ class _MyAppState extends State<MyApp> {
             );
           }),
     );
-  }
-
-  void restartApp() {
-    this.setState(() {
-      navigatorKey = GlobalKey<NavigatorState>();
-      key = UniqueKey();
-    });
-  }
-
-  void setCustomTheme() {
-    setState(() {
-      AppTheme.isLightTheme = !AppTheme.isLightTheme;
-    });
   }
 }
 

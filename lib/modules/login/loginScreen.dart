@@ -6,7 +6,6 @@ import 'package:hahoon/modules/login/forgotPasswordScreen.dart';
 import 'package:hahoon/stores/authStore.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../appTheme.dart';
 
@@ -339,16 +338,14 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _submitForm() async {
+  void _submitForm() {
     setState(() => isSave = true);
     if (mounted) setState(() => isSubmit = true);
     final authStore = Provider.of<AuthStore>(context, listen: false);
-    final pref = await SharedPreferences.getInstance();
     authStore
         .signInWithCloud(
             emailController.value.text, passwordController.value.text)
         .flatMap((fbUser) {
-      pref.setString('uid', fbUser.user.uid);
       authStore.setFbUser(fbUser.user);
       return authStore.getDbUser(fbUser.user.uid);
     }).listen((res) {

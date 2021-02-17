@@ -33,7 +33,7 @@ class BaseData {
       'createAt': createAt,
       'deleteAt': deleteAt,
       'updateAt': updateAt,
-      'deleted': deleted,
+      'deleted': deleted ?? false
     };
   }
 }

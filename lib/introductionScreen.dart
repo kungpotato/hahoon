@@ -51,6 +51,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
             duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
       }
     });
+
     super.initState();
   }
 

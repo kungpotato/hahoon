@@ -45,19 +45,15 @@ abstract class _AuthStore with Store {
   }
 
   Stream<UserCredential> signInWithCloud(String email, String password) {
-    final HttpsCallable callable =
-        FirebaseFunctions.instance.httpsCallable('signInUser');
-    return Stream.fromFuture(callable
-            .call(<String, dynamic>{'email': email, 'password': password}))
+    final response = Stream.fromFuture(Requests.post(API.signIn,
+            body: {"email": email, "password": password},
+            bodyEncoding: RequestBodyEncoding.FormURLEncoded))
         .flatMap((resp) {
-      if (resp.data['code'] == 500) {
-        return Stream.error(resp.data);
-      } else {
-        final token = resp.data['body'];
-        return Stream.fromFuture(
-            FirebaseAuth.instance.signInWithCustomToken(token));
-      }
+      final token = resp.content();
+      return Stream.fromFuture(
+          FirebaseAuth.instance.signInWithCustomToken(token));
     });
+    return response;
   }
 
   Future<void> signOut() async {
@@ -74,14 +70,12 @@ abstract class _AuthStore with Store {
   }
 
   Stream<Response> createUSer(String fullName, String email, String password) {
-    final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
-        'CreateUser',
-        options: HttpsCallableOptions(timeout: Duration(seconds: 5)));
     final dataSave = UserData(
         fullName: fullName,
         password: password,
         email: email,
         createAt: Timestamp.now());
+    print(dataSave.toMap());
     final response = Stream.fromFuture(Requests.post(API.createUser,
             body: dataSave.toMap(),
             bodyEncoding: RequestBodyEncoding.FormURLEncoded))
@@ -99,15 +93,26 @@ abstract class _AuthStore with Store {
   //   }).defaultIfEmpty(UserData(createAt: Timestamp.now()));
   // }
 
-  // Stream<UserData> getDbUser(String uid, String client) {
-  //   final userRef = FirebaseFirestore.instance.doc('client/$client/users/$uid');
-  //   return Stream.fromFuture(userRef.get()).map((doc) {
-  //     return UserData.fromMap(
-  //         {'id': doc.id, 'selfRef': doc.reference, ...doc.data()});
-  //   }).defaultIfEmpty(UserData(createAt: Timestamp.now()));
-  // }
+  Stream<UserData> getDbUser(String uid) {
+    final userRef = FirebaseFirestore.instance.doc('users/$uid');
+    return Stream.fromFuture(userRef.get()).map((doc) {
+      print(doc.id);
+      return UserData.fromMap(
+          {'id': doc.id, 'selfRef': doc.reference, ...doc.data()});
+    }).defaultIfEmpty(null);
+  }
 
   Stream updateDbUser(DocumentReference ref, UserData data) {
     return Stream.fromFuture(ref.update(data.toMap()));
+  }
+
+  void testCall() {
+    HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('addTest',
+        options: HttpsCallableOptions(timeout: Duration(seconds: 5)));
+    Stream.fromFuture(callable.call({'name': 'potato'})).listen((event) {
+      print(event.data);
+    }, onError: (err) {
+      print(err);
+    });
   }
 }

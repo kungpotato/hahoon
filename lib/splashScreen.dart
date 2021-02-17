@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hahoon/introductionScreen.dart';
+import 'package:hahoon/main.dart';
+import 'package:hahoon/stores/authStore.dart';
+import 'package:provider/provider.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'appTheme.dart';
-import 'introductionScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -125,6 +129,9 @@ class _SplashScreenState extends State<SplashScreen> {
                         borderRadius: BorderRadius.all(Radius.circular(24.0)),
                         highlightColor: Colors.transparent,
                         onTap: () {
+                          // final authStore =
+                          //     Provider.of<AuthStore>(context, listen: false);
+                          // authStore.testCall();
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -169,5 +176,24 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    final authStore = Provider.of<AuthStore>(context, listen: false);
+
+    authStore.onAuthStateChangedFirebase().flatMap((fbUser) {
+      authStore.setFbUser(fbUser);
+      return authStore.getDbUser(fbUser.uid);
+    }).listen((user) {
+      if (user != null) {
+        authStore.setDbUser(user);
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.TabScreen, (Route<dynamic> route) => false);
+      }
+    }, onError: (err) {
+      print(err);
+    });
+    super.initState();
   }
 }

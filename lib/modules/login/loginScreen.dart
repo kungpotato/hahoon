@@ -339,7 +339,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _submitForm() {
-    setState(() => isSave = true);
+    if (mounted) setState(() => isSave = true);
     if (mounted) setState(() => isSubmit = true);
     final authStore = Provider.of<AuthStore>(context, listen: false);
     authStore
@@ -375,7 +375,7 @@ class _LoginScreenState extends State<LoginScreen> {
       _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(errMsg)));
       print(errMsg);
     }, onDone: () {
-      setState(() => isSave = false);
+      if (mounted) setState(() => isSave = false);
     });
   }
 }

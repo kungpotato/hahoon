@@ -442,7 +442,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _onSubmit() {
-    setState(() => isSave = true);
+    if (mounted) setState(() => isSave = true);
     final authStore = Provider.of<AuthStore>(context, listen: false);
     authStore
         .createUSer(
@@ -463,7 +463,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _scaffoldKey.currentState
           .showSnackBar(SnackBar(content: Text(err.toString())));
     }, onDone: () {
-      setState(() => isSave = false);
+      if (mounted) setState(() => isSave = false);
     });
   }
 }

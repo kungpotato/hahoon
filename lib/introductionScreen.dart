@@ -14,7 +14,7 @@ class IntroductionScreen extends StatefulWidget {
 
 class _IntroductionScreenState extends State<IntroductionScreen> {
   var pageController = PageController(initialPage: 0);
-  var pageViewModelData = List<PageViewData>();
+  List<PageViewData> pageViewModelData = [];
 
   Timer sliderTimer;
   var currentShowIndex = 0;

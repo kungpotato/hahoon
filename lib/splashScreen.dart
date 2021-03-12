@@ -192,13 +192,18 @@ class _SplashScreenState extends State<SplashScreen> {
     final authStore = Provider.of<AuthStore>(context, listen: false);
 
     authStore.onAuthStateChangedFirebase().flatMap((fbUser) {
-      authStore.setFbUser(fbUser);
-      return authStore.getDbUser(fbUser.uid);
+      if (fbUser != null) {
+        authStore.setFbUser(fbUser);
+        return authStore.getDbUser(fbUser.uid);
+      }
+      return Stream.value(fbUser);
     }).listen((user) {
       if (user != null) {
         authStore.setDbUser(user);
         Navigator.pushNamedAndRemoveUntil(
             context, Routes.TabScreen, (Route<dynamic> route) => false);
+      } else {
+        if (mounted) setState(() => isLoad = false);
       }
     }, onError: (err) {
       print(err);

@@ -1,6 +1,5 @@
 class API {
-  static final String createUser =
-      'https://us-central1-hahoon-e35a1.cloudfunctions.net/CreateUser';
-  static final String signIn =
-      'https://us-central1-hahoon-e35a1.cloudfunctions.net/signIn';
+  static final String root = 'us-central1-hahoon-e35a1.cloudfunctions.net';
+  static final String createUser = "/CreateUser";
+  static final String signIn = "/signIn";
 }

@@ -354,7 +354,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.pushNamedAndRemoveUntil(
             context, Routes.TabScreen, (Route<dynamic> route) => false);
       } else {
-        _scaffoldKey.currentState
+        ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('ไม่พบผู้ใช้')));
       }
     }, onError: (e) {
@@ -372,7 +372,8 @@ class _LoginScreenState extends State<LoginScreen> {
       } else {
         print('err=>$e');
       }
-      _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(errMsg)));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(errMsg)));
       print(errMsg);
     }, onDone: () {
       if (mounted) setState(() => isSave = false);

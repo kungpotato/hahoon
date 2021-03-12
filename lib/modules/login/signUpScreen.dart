@@ -452,7 +452,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         .listen((res) {
       print(res);
       if (res.statusCode == 201) {
-        _scaffoldKey.currentState
+        ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('email นี้เคยลงทะเบียนแล้ว')));
       } else if (res.statusCode == 200) {
         Navigator.pushNamedAndRemoveUntil(
@@ -460,7 +460,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       }
     }, onError: (err) {
       print(err.toString());
-      _scaffoldKey.currentState
+      ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(err.toString())));
     }, onDone: () {
       if (mounted) setState(() => isSave = false);

@@ -4,8 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:hahoon/models/userData.dart';
 import 'package:hahoon/modules/helpers/api.dart';
+import 'package:http/http.dart' as http;
 import 'package:mobx/mobx.dart';
-import 'package:requests/requests.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -45,11 +45,10 @@ abstract class _AuthStore with Store {
   }
 
   Stream<UserCredential> signInWithCloud(String email, String password) {
-    final response = Stream.fromFuture(Requests.post(API.signIn,
-            body: {"email": email, "password": password},
-            bodyEncoding: RequestBodyEncoding.FormURLEncoded))
-        .flatMap((resp) {
-      final token = resp.content();
+    final response = Stream.fromFuture(http.post(
+        Uri.https(API.root, API.signIn),
+        body: {"email": email, "password": password})).flatMap((resp) {
+      final token = resp.body;
       return Stream.fromFuture(
           FirebaseAuth.instance.signInWithCustomToken(token));
     });
@@ -69,16 +68,15 @@ abstract class _AuthStore with Store {
     }
   }
 
-  Stream<Response> createUSer(String fullName, String email, String password) {
+  Stream<http.Response> createUSer(
+      String fullName, String email, String password) {
     final dataSave = UserData(
         fullName: fullName,
         password: password,
         email: email,
         createAt: Timestamp.now());
-    print(dataSave.toMap());
-    final response = Stream.fromFuture(Requests.post(API.createUser,
-            body: dataSave.toMap(),
-            bodyEncoding: RequestBodyEncoding.FormURLEncoded))
+    final response = Stream.fromFuture(http
+            .post(Uri.https(API.root, API.createUser), body: dataSave.toMap()))
         .flatMap((resp) {
       return Stream.value(resp);
     });

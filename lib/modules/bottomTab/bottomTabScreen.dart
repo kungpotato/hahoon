@@ -28,10 +28,11 @@ class _BottomTabScreenState extends State<BottomTabScreen>
 
   Future _startLoadScreen() async {
     await Future.delayed(const Duration(milliseconds: 480));
-    setState(() {
-      isFirstTime = false;
-      indexView = TestScreen();
-    });
+    if (mounted)
+      setState(() {
+        isFirstTime = false;
+        indexView = TestScreen();
+      });
     animationController..forward();
   }
 

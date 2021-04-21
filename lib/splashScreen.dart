@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hahoon/introductionScreen.dart';
 import 'package:hahoon/main.dart';
+import 'package:hahoon/models/userData.dart';
 import 'package:hahoon/modules/helpers/WidgetHelper.dart';
 import 'package:hahoon/stores/authStore.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
                             end: Alignment.topCenter,
                             colors: [
                           Colors.white,
-                          Colors.cyan[100],
+                          Colors.cyan[100]!,
                         ])),
                     foregroundDecoration: !AppTheme.isLightTheme
                         ? BoxDecoration(
@@ -199,7 +200,7 @@ class _SplashScreenState extends State<SplashScreen> {
       return Stream.value(fbUser);
     }).listen((user) {
       if (user != null) {
-        authStore.setDbUser(user);
+        authStore.setDbUser(user as UserData);
         Navigator.pushNamedAndRemoveUntil(
             context, Routes.TabScreen, (Route<dynamic> route) => false);
       } else {

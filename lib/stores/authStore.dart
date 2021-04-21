@@ -15,27 +15,27 @@ class AuthStore = _AuthStore with _$AuthStore;
 
 abstract class _AuthStore with Store {
   @observable
-  UserData dbUser;
+  UserData? dbUser;
 
   @observable
-  User fbUser;
+  User? fbUser;
 
   Future<String> getFireBaseToken() async {
-    final user = FirebaseAuth.instance.currentUser;
+    final user = FirebaseAuth.instance.currentUser!;
     return await user.getIdToken(true);
   }
 
-  Stream<User> onAuthStateChangedFirebase() {
+  Stream<User?> onAuthStateChangedFirebase() {
     return FirebaseAuth.instance.authStateChanges();
   }
 
   @action
-  void setDbUser(UserData dbUser) {
+  void setDbUser(UserData? dbUser) {
     this.dbUser = dbUser;
   }
 
   @action
-  void setFbUser(User fbUser) {
+  void setFbUser(User? fbUser) {
     this.fbUser = fbUser;
   }
 
@@ -91,13 +91,16 @@ abstract class _AuthStore with Store {
   //   }).defaultIfEmpty(UserData(createAt: Timestamp.now()));
   // }
 
-  Stream<UserData> getDbUser(String uid) {
+  Stream<UserData?> getDbUser(String uid) {
     final userRef = FirebaseFirestore.instance.doc('users/$uid');
     return Stream.fromFuture(userRef.get()).map((doc) {
-      print(doc.id);
-      return UserData.fromMap(
-          {'id': doc.id, 'selfRef': doc.reference, ...doc.data()});
-    }).defaultIfEmpty(null);
+      if (doc.exists) {
+        return UserData.fromMap(
+            {'id': doc.id, 'selfRef': doc.reference, ...doc.data()!});
+      } else {
+        return null;
+      }
+    });
   }
 
   Stream updateDbUser(DocumentReference ref, UserData data) {

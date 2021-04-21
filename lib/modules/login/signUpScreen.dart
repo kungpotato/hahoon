@@ -153,8 +153,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 height: 48,
                                 child: Center(
                                   child: TextFormField(
-                                    validator: (String value) {
-                                      if (value.trim().isEmpty) {
+                                    validator: (String? value) {
+                                      if (value!.trim().isEmpty) {
                                         return 'กรุณาใส่ชื่อ';
                                       }
                                       return null;
@@ -204,8 +204,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 height: 48,
                                 child: Center(
                                   child: TextFormField(
-                                    validator: (String value) {
-                                      if (value.trim().isEmpty) {
+                                    validator: (String? value) {
+                                      if (value!.trim().isEmpty) {
                                         return 'กรุณาใส่นามสกุล';
                                       }
                                       return null;
@@ -254,8 +254,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 height: 48,
                                 child: Center(
                                   child: TextFormField(
-                                    validator: (String value) {
-                                      if (value.trim().isEmpty) {
+                                    validator: (String? value) {
+                                      if (value!.trim().isEmpty) {
                                         return 'กรุณาใส่อีเมล';
                                       }
                                       return null;
@@ -306,8 +306,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 child: Center(
                                   child: TextFormField(
                                     obscureText: true,
-                                    validator: (String value) {
-                                      if (value.trim().isEmpty) {
+                                    validator: (String? value) {
+                                      if (value!.trim().isEmpty) {
                                         return 'กรุณาใส่รหัสผ่าน';
                                       }
                                       return null;
@@ -358,7 +358,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     BorderRadius.all(Radius.circular(24.0)),
                                 highlightColor: Colors.transparent,
                                 onTap: () {
-                                  if (_formKey.currentState.validate()) {
+                                  if (_formKey.currentState!.validate()) {
                                     _onSubmit();
                                   }
                                 },

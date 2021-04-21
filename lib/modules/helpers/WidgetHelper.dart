@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hahoon/appTheme.dart';
 
-Widget getFTButton({bool isFacebook: true, @required Function onTap}) {
+Widget getFTButton({bool isFacebook: true, required Function onTap}) {
   return Container(
     height: 48,
     decoration: BoxDecoration(
@@ -21,7 +21,7 @@ Widget getFTButton({bool isFacebook: true, @required Function onTap}) {
       child: InkWell(
         borderRadius: BorderRadius.all(Radius.circular(24.0)),
         highlightColor: Colors.transparent,
-        onTap: onTap,
+        onTap: onTap as void Function()?,
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

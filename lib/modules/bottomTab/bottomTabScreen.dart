@@ -12,7 +12,7 @@ class BottomTabScreen extends StatefulWidget {
 
 class _BottomTabScreenState extends State<BottomTabScreen>
     with TickerProviderStateMixin {
-  AnimationController _controller;
+  AnimationController? _controller;
   bool isFirstTime = true;
   Widget indexView = Container();
   BottomBarType bottomBarType = BottomBarType.Test;
@@ -22,7 +22,7 @@ class _BottomTabScreenState extends State<BottomTabScreen>
     _controller =
         AnimationController(duration: Duration(milliseconds: 400), vsync: this);
     indexView = Container();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _startLoadScreen());
+    WidgetsBinding.instance!.addPostFrameCallback((_) => _startLoadScreen());
     super.initState();
   }
 
@@ -33,7 +33,7 @@ class _BottomTabScreenState extends State<BottomTabScreen>
         indexView = TestScreen();
       });
     try {
-      await _controller.forward();
+      await _controller!.forward();
     } on TickerCanceled {
       // the animation got canceled, probably because we were disposed
       print('animation got canceled');
@@ -68,7 +68,7 @@ class _BottomTabScreenState extends State<BottomTabScreen>
   void tabClick(BottomBarType tabType) {
     if (tabType != bottomBarType) {
       bottomBarType = tabType;
-      _controller.reverse().then((f) {
+      _controller!.reverse().then((f) {
         if (tabType == BottomBarType.Test) {
           setState(() {
             indexView = TestScreen();

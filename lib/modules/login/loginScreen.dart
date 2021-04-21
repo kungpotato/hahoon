@@ -157,8 +157,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: 48,
                                 child: Center(
                                   child: TextFormField(
-                                    validator: (String value) {
-                                      if (value.trim().isEmpty) {
+                                    validator: (String? value) {
+                                      if (value!.trim().isEmpty) {
                                         return 'กรุณาใส่อีเมล';
                                       }
                                       return null;
@@ -213,8 +213,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Center(
                                   child: TextFormField(
                                     obscureText: true,
-                                    validator: (String value) {
-                                      if (value.trim().isEmpty) {
+                                    validator: (String? value) {
+                                      if (value!.trim().isEmpty) {
                                         return 'กรุณาใส่รหัสผ่าน';
                                       }
                                       return null;
@@ -307,7 +307,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   //     (Route<dynamic> route) => false);
 
                                   // Navigator.pushReplacementNamed(context, Routes.TabScreen);
-                                  if (_formKey.currentState.validate()) {
+                                  if (_formKey.currentState!.validate()) {
                                     _submitForm();
                                   }
                                 },
@@ -347,7 +347,7 @@ class _LoginScreenState extends State<LoginScreen> {
             emailController.value.text, passwordController.value.text)
         .flatMap((fbUser) {
       authStore.setFbUser(fbUser.user);
-      return authStore.getDbUser(fbUser.user.uid);
+      return authStore.getDbUser(fbUser.user!.uid);
     }).listen((res) {
       if (res != null) {
         authStore.setDbUser(res);
@@ -359,7 +359,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }, onError: (e) {
       if (mounted) setState(() => isSubmit = false);
-      String errMsg = e.toString();
+      String? errMsg = e.toString();
       print('err=>$e');
       if (e is PlatformException) {
         final PlatformException err = e;
@@ -373,7 +373,7 @@ class _LoginScreenState extends State<LoginScreen> {
         print('err=>$e');
       }
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(errMsg)));
+          .showSnackBar(SnackBar(content: Text(errMsg!)));
       print(errMsg);
     }, onDone: () {
       if (mounted) setState(() => isSave = false);

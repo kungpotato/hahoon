@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_page_indicator/flutter_page_indicator.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'appTheme.dart';
 import 'modules/login/loginScreen.dart';
@@ -16,7 +16,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   var pageController = PageController(initialPage: 0);
   List<PageViewData> pageViewModelData = [];
 
-  Timer sliderTimer;
+  Timer? sliderTimer;
   var currentShowIndex = 0;
 
   @override
@@ -87,14 +87,14 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                 ],
               ),
             ),
-            PageIndicator(
-              layout: PageIndicatorLayout.WARM,
-              size: 10.0,
+            SmoothPageIndicator(
               controller: pageController,
-              space: 5.0,
+              effect: SlideEffect(
+                  dotColor: AppTheme.getTheme().dividerColor,
+                  spacing: 5,
+                  radius: 8.0,
+                  activeDotColor: AppTheme.getTheme().primaryColor),
               count: 3,
-              color: AppTheme.getTheme().dividerColor,
-              activeColor: AppTheme.getTheme().primaryColor,
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -185,9 +185,9 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
 }
 
 class PagePopup extends StatelessWidget {
-  final PageViewData imageData;
+  final PageViewData? imageData;
 
-  const PagePopup({Key key, this.imageData}) : super(key: key);
+  const PagePopup({Key? key, this.imageData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +201,7 @@ class PagePopup extends StatelessWidget {
               child: AspectRatio(
                 aspectRatio: 1,
                 child: Image.asset(
-                  imageData.assetsImage,
+                  imageData!.assetsImage!,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -212,7 +212,7 @@ class PagePopup extends StatelessWidget {
           flex: 1,
           child: Container(
             child: Text(
-              imageData.titleText,
+              imageData!.titleText!,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 24,
@@ -225,7 +225,7 @@ class PagePopup extends StatelessWidget {
           flex: 1,
           child: Container(
             child: Text(
-              imageData.subText,
+              imageData!.subText!,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 14,
@@ -245,9 +245,9 @@ class PagePopup extends StatelessWidget {
 }
 
 class PageViewData {
-  final String titleText;
-  final String subText;
-  final String assetsImage;
+  final String? titleText;
+  final String? subText;
+  final String? assetsImage;
 
   PageViewData({this.titleText, this.subText, this.assetsImage});
 }

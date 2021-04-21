@@ -12,13 +12,13 @@ mixin _$AuthStore on _AuthStore, Store {
   final _$dbUserAtom = Atom(name: '_AuthStore.dbUser');
 
   @override
-  UserData get dbUser {
+  UserData? get dbUser {
     _$dbUserAtom.reportRead();
     return super.dbUser;
   }
 
   @override
-  set dbUser(UserData value) {
+  set dbUser(UserData? value) {
     _$dbUserAtom.reportWrite(value, super.dbUser, () {
       super.dbUser = value;
     });
@@ -27,13 +27,13 @@ mixin _$AuthStore on _AuthStore, Store {
   final _$fbUserAtom = Atom(name: '_AuthStore.fbUser');
 
   @override
-  User get fbUser {
+  User? get fbUser {
     _$fbUserAtom.reportRead();
     return super.fbUser;
   }
 
   @override
-  set fbUser(User value) {
+  set fbUser(User? value) {
     _$fbUserAtom.reportWrite(value, super.fbUser, () {
       super.fbUser = value;
     });
@@ -42,7 +42,7 @@ mixin _$AuthStore on _AuthStore, Store {
   final _$_AuthStoreActionController = ActionController(name: '_AuthStore');
 
   @override
-  void setDbUser(UserData dbUser) {
+  void setDbUser(UserData? dbUser) {
     final _$actionInfo =
         _$_AuthStoreActionController.startAction(name: '_AuthStore.setDbUser');
     try {
@@ -53,7 +53,7 @@ mixin _$AuthStore on _AuthStore, Store {
   }
 
   @override
-  void setFbUser(User fbUser) {
+  void setFbUser(User? fbUser) {
     final _$actionInfo =
         _$_AuthStoreActionController.startAction(name: '_AuthStore.setFbUser');
     try {

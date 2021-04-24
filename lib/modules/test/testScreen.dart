@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 class TestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        body: Text('test'),
+    return SafeArea(
+      child: Container(
+        child: Text('test'),
       ),
     );
   }

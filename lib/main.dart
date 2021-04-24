@@ -60,16 +60,16 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness:
-          AppTheme.isLightTheme ? Brightness.dark : Brightness.light,
-      statusBarBrightness:
-          AppTheme.isLightTheme ? Brightness.light : Brightness.dark,
-      systemNavigationBarColor:
-          AppTheme.isLightTheme ? Colors.white : Colors.black,
-      systemNavigationBarDividerColor: Colors.grey,
-      systemNavigationBarIconBrightness:
-          AppTheme.isLightTheme ? Brightness.dark : Brightness.light,
+      statusBarColor: AppTheme.statusBarColors.withOpacity(0.5),
+      // statusBarIconBrightness:
+      //     AppTheme.isLightTheme ? Brightness.dark : Brightness.light,
+      // statusBarBrightness:
+      //     AppTheme.isLightTheme ? Brightness.light : Brightness.dark,
+      // systemNavigationBarColor:
+      //     AppTheme.isLightTheme ? Colors.white : Colors.black,
+      // systemNavigationBarDividerColor: Colors.grey,
+      // systemNavigationBarIconBrightness:
+      //     AppTheme.isLightTheme ? Brightness.dark : Brightness.light,
     ));
     return Container(
       color: AppTheme.getTheme().backgroundColor,

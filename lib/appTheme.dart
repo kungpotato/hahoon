@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static bool isLightTheme = true;
-  static Color primaryColors = HexColor("#3F7A63");
+  static Color statusBarColors = HexColor("#1a1c20");
+  static Color primaryColorsLight = HexColor("#DA4F2C");
+  static Color primaryColorsDark = HexColor("#0f0f0f");
+  static Color secondaryColors = HexColor("#f3f4ed");
 
   static TextTheme _buildTextTheme(TextTheme base) {
     var fontName = "FC Iconic";
@@ -32,14 +35,16 @@ class AppTheme {
   }
 
   static ThemeData newLightTheme() {
-    Color primaryColor = primaryColors;
-    Color secondaryColor = primaryColors;
-    final ColorScheme colorScheme = const ColorScheme.light().copyWith(
+    Color primaryColor = primaryColorsLight;
+    Color secondaryColor = secondaryColors;
+    final ColorScheme colorScheme = ColorScheme.light().copyWith(
       primary: primaryColor,
       secondary: secondaryColor,
     );
     final ThemeData base = ThemeData.light();
+
     return base.copyWith(
+      appBarTheme: AppBarTheme(brightness: Brightness.dark),
       colorScheme: colorScheme,
       primaryColor: primaryColor,
       buttonColor: primaryColor,
@@ -48,9 +53,9 @@ class AppTheme {
       splashFactory: InkRipple.splashFactory,
       accentColor: secondaryColor,
       canvasColor: Colors.white,
-      backgroundColor: const Color(0xFFFFFFFF),
-      scaffoldBackgroundColor: const Color(0xFFF6F6F6),
-      errorColor: const Color(0xFFB00020),
+      backgroundColor: Color(0xFFFFFFFF),
+      scaffoldBackgroundColor: Color(0xFFF6F6F6),
+      errorColor: Color(0xFFB00020),
       buttonTheme: ButtonThemeData(
         colorScheme: colorScheme,
         textTheme: ButtonTextTheme.primary,
@@ -63,14 +68,15 @@ class AppTheme {
   }
 
   static ThemeData newDarkTheme() {
-    Color primaryColor = primaryColors;
-    Color secondaryColor = primaryColors;
-    final ColorScheme colorScheme = const ColorScheme.light().copyWith(
+    Color primaryColor = primaryColorsDark;
+    Color secondaryColor = secondaryColors;
+    final ColorScheme colorScheme = ColorScheme.dark().copyWith(
       primary: primaryColor,
       secondary: secondaryColor,
     );
     final ThemeData base = ThemeData.dark();
     return base.copyWith(
+      appBarTheme: AppBarTheme(brightness: Brightness.dark),
       colorScheme: colorScheme,
       primaryColor: primaryColor,
       buttonColor: primaryColor,
@@ -80,7 +86,7 @@ class AppTheme {
       accentColor: secondaryColor,
       canvasColor: Colors.white,
       backgroundColor: Colors.black,
-      scaffoldBackgroundColor: const Color(0xFF0F0F0F),
+      scaffoldBackgroundColor: Color(0xFF0F0F0F),
       buttonTheme: ButtonThemeData(
         colorScheme: colorScheme,
         textTheme: ButtonTextTheme.primary,

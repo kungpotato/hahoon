@@ -50,7 +50,7 @@ class _BottomTabScreenState extends State<BottomTabScreen>
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        backgroundColor: AppTheme.getTheme().backgroundColor,
+        // backgroundColor: AppTheme.getTheme().backgroundColor,
         bottomNavigationBar: Container(
             height: 58 + MediaQuery.of(context).padding.bottom,
             child: getBottomBarUI(bottomBarType)),

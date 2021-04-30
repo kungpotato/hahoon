@@ -52,7 +52,7 @@ class _BottomTabScreenState extends State<BottomTabScreen>
       child: Scaffold(
         // backgroundColor: AppTheme.getTheme().backgroundColor,
         bottomNavigationBar: Container(
-            height: 58 + MediaQuery.of(context).padding.bottom,
+            height: 54 + MediaQuery.of(context).padding.bottom,
             child: getBottomBarUI(bottomBarType)),
         body: isFirstTime
             ? Center(

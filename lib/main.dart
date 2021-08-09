@@ -61,6 +61,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: AppTheme.statusBarColors.withOpacity(0.5),
       // statusBarIconBrightness:

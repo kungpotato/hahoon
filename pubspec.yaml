@@ -26,7 +26,7 @@ dependencies:
   smooth_page_indicator: ^0.3.0-nullsafety.0
   font_awesome_flutter: ^9.1.0
   google_fonts: ^2.1.0
-  mobx: ^2.0.3
+  mobx: ^2.0.4
   provider: ^5.0.0
   firebase_core: ^1.4.0
   firebase_messaging: ^10.0.4
@@ -37,7 +37,7 @@ dependencies:
   firebase_crashlytics: ^2.1.1
   rxdart: ^0.27.1
   http: ^0.13.3
-  mobx_codegen: ^2.0.2
+  mobx_codegen: ^2.0.3
   build_resolvers: ^2.0.4
 
 
@@ -48,7 +48,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.0.6
+  build_runner: ^2.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

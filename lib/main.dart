@@ -6,9 +6,10 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hahoon/appTheme.dart';
 import 'package:hahoon/modules/bottomTab/bottomTabScreen.dart';
-
 import 'package:hahoon/splashScreen.dart';
 import 'package:hahoon/stores/authStore.dart';
 import 'package:provider/provider.dart';
@@ -76,6 +77,16 @@ class _MyAppState extends State<MyApp> {
       color: AppTheme.getTheme().backgroundColor,
       child: MaterialApp(
           title: 'Hahoon',
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: [
+            Locale('en', ''), // English, no country code
+            Locale('th', ''), // Spanish, no country code
+          ],
           debugShowCheckedModeBanner: false,
           theme: AppTheme.getTheme(),
           routes: routes,

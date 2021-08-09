@@ -94,142 +94,144 @@ class _BottomTabScreenState extends State<BottomTabScreen>
           ),
         ],
       ),
-      child: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              // Expanded(
-              //   child: Material(
-              //     color: Colors.transparent,
-              //     child: InkWell(
-              //       highlightColor: Colors.transparent,
-              //       splashColor:
-              //           AppTheme.getTheme().primaryColor.withOpacity(0.2),
-              //       onTap: () {
-              //         tabClick(BottomBarType.Test);
-              //       },
-              //       child: Column(
-              //         children: <Widget>[
-              //           SizedBox(
-              //             height: 4,
-              //           ),
-              //           Container(
-              //             width: 40,
-              //             height: 32,
-              //             child: Icon(
-              //               Icons.search,
-              //               size: 26,
-              //               color: tabType == BottomBarType.Test
-              //                   ? AppTheme.getTheme().primaryColor
-              //                   : AppTheme.getTheme().disabledColor,
-              //             ),
-              //           ),
-              //           Padding(
-              //             padding: const EdgeInsets.only(bottom: 6),
-              //             child: Text(
-              //               "Test",
-              //               style: TextStyle(
-              //                   fontWeight: FontWeight.w500,
-              //                   color: tabType == BottomBarType.Test
-              //                       ? AppTheme.getTheme().primaryColor
-              //                       : AppTheme.getTheme().disabledColor),
-              //             ),
-              //           )
-              //         ],
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              Expanded(
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor:
-                        AppTheme.getTheme().primaryColor.withOpacity(0.2),
-                    onTap: () {
-                      tabClick(BottomBarType.Test);
-                    },
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Container(
-                          width: 40,
-                          height: 32,
-                          child: Icon(
-                            FontAwesomeIcons.heart,
-                            color: tabType == BottomBarType.Test
-                                ? AppTheme.getTheme().primaryColor
-                                : AppTheme.getTheme().disabledColor,
-                            size: 20,
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                // Expanded(
+                //   child: Material(
+                //     color: Colors.transparent,
+                //     child: InkWell(
+                //       highlightColor: Colors.transparent,
+                //       splashColor:
+                //           AppTheme.getTheme().primaryColor.withOpacity(0.2),
+                //       onTap: () {
+                //         tabClick(BottomBarType.Test);
+                //       },
+                //       child: Column(
+                //         children: <Widget>[
+                //           SizedBox(
+                //             height: 4,
+                //           ),
+                //           Container(
+                //             width: 40,
+                //             height: 32,
+                //             child: Icon(
+                //               Icons.search,
+                //               size: 26,
+                //               color: tabType == BottomBarType.Test
+                //                   ? AppTheme.getTheme().primaryColor
+                //                   : AppTheme.getTheme().disabledColor,
+                //             ),
+                //           ),
+                //           Padding(
+                //             padding: const EdgeInsets.only(bottom: 6),
+                //             child: Text(
+                //               "Test",
+                //               style: TextStyle(
+                //                   fontWeight: FontWeight.w500,
+                //                   color: tabType == BottomBarType.Test
+                //                       ? AppTheme.getTheme().primaryColor
+                //                       : AppTheme.getTheme().disabledColor),
+                //             ),
+                //           )
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                Expanded(
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor:
+                          AppTheme.getTheme().primaryColor.withOpacity(0.2),
+                      onTap: () {
+                        tabClick(BottomBarType.Test);
+                      },
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 4,
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 6),
-                          child: Text(
-                            "Test",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: tabType == BottomBarType.Test
-                                    ? AppTheme.getTheme().primaryColor
-                                    : AppTheme.getTheme().disabledColor),
+                          Container(
+                            width: 40,
+                            height: 32,
+                            child: Icon(
+                              FontAwesomeIcons.heart,
+                              color: tabType == BottomBarType.Test
+                                  ? AppTheme.getTheme().primaryColor
+                                  : AppTheme.getTheme().disabledColor,
+                              size: 20,
+                            ),
                           ),
-                        )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 6),
+                            child: Text(
+                              "Test",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: tabType == BottomBarType.Test
+                                      ? AppTheme.getTheme().primaryColor
+                                      : AppTheme.getTheme().disabledColor),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor:
-                        AppTheme.getTheme().primaryColor.withOpacity(0.2),
-                    onTap: () {
-                      tabClick(BottomBarType.Profile);
-                    },
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Container(
-                          width: 40,
-                          height: 32,
-                          child: Icon(
-                            FontAwesomeIcons.user,
-                            color: tabType == BottomBarType.Profile
-                                ? AppTheme.getTheme().primaryColor
-                                : AppTheme.getTheme().disabledColor,
-                            size: 22,
+                Expanded(
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor:
+                          AppTheme.getTheme().primaryColor.withOpacity(0.2),
+                      onTap: () {
+                        tabClick(BottomBarType.Profile);
+                      },
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 4,
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 6),
-                          child: Text(
-                            "Profile",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: tabType == BottomBarType.Profile
-                                    ? AppTheme.getTheme().primaryColor
-                                    : AppTheme.getTheme().disabledColor),
+                          Container(
+                            width: 40,
+                            height: 32,
+                            child: Icon(
+                              FontAwesomeIcons.user,
+                              color: tabType == BottomBarType.Profile
+                                  ? AppTheme.getTheme().primaryColor
+                                  : AppTheme.getTheme().disabledColor,
+                              size: 22,
+                            ),
                           ),
-                        )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 6),
+                            child: Text(
+                              "Profile",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: tabType == BottomBarType.Profile
+                                      ? AppTheme.getTheme().primaryColor
+                                      : AppTheme.getTheme().disabledColor),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).padding.bottom,
-          )
-        ],
+                )
+              ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).padding.bottom,
+            )
+          ],
+        ),
       ),
     );
   }

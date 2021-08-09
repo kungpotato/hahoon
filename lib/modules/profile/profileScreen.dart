@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -8,5 +13,11 @@ class ProfileScreen extends StatelessWidget {
         child: Text('profile'),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+//
   }
 }

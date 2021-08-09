@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/material.dart';
 import 'package:hahoon/models/userData.dart';
 import 'package:hahoon/modules/helpers/api.dart';
 import 'package:http/http.dart' as http;
@@ -20,6 +21,9 @@ abstract class _AuthStore with Store {
   @observable
   User? fbUser;
 
+  @observable
+  Locale? locale;
+
   Future<String> getFireBaseToken() async {
     final user = FirebaseAuth.instance.currentUser!;
     return await user.getIdToken(true);
@@ -37,6 +41,11 @@ abstract class _AuthStore with Store {
   @action
   void setFbUser(User? fbUser) {
     this.fbUser = fbUser;
+  }
+
+  @action
+  void setLocale(Locale lng) {
+    locale = lng;
   }
 
   void clearStore() {

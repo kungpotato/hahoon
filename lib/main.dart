@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hahoon/appTheme.dart';
 import 'package:hahoon/modules/bottomTab/bottomTabScreen.dart';
 import 'package:hahoon/splashScreen.dart';
@@ -61,7 +62,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: AppTheme.statusBarColors.withOpacity(0.5),
       // statusBarIconBrightness:
@@ -74,42 +74,49 @@ class _MyAppState extends State<MyApp> {
       // systemNavigationBarIconBrightness:
       //     AppTheme.isLightTheme ? Brightness.dark : Brightness.light,
     ));
-    return Container(
-      color: AppTheme.getTheme().backgroundColor,
-      child: MaterialApp(
-          title: 'Hahoon',
-          localizationsDelegates: [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: [
-            Locale('en', ''), // English, no country code
-            Locale('th', ''), // Spanish, no country code
-          ],
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.getTheme(),
-          routes: routes,
-          builder: (BuildContext context, Widget? child) {
-            return Directionality(
-              textDirection: TextDirection.ltr,
-              child: Builder(
-                builder: (BuildContext context) {
-                  return MediaQuery(
-                    data: MediaQuery.of(context).copyWith(
-                      textScaleFactor: MediaQuery.of(context).size.width > 360
-                          ? 1.0
-                          : MediaQuery.of(context).size.width >= 340
-                              ? 0.9
-                              : 0.8,
-                    ),
-                    child: child!,
-                  );
-                },
-              ),
-            );
-          }),
+    return Observer(
+      builder: (context) {
+        final authStore = Provider.of<AuthStore>(context, listen: false);
+        return Container(
+          color: AppTheme.getTheme().backgroundColor,
+          child: MaterialApp(
+              title: 'Hahoon',
+              localizationsDelegates: [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              locale: Locale(authStore.lang),
+              supportedLocales: [
+                Locale('en', ''), // English, no country code
+                Locale('th', ''), // Spanish, no country code
+              ],
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.getTheme(),
+              routes: routes,
+              builder: (BuildContext context, Widget? child) {
+                return Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Builder(
+                    builder: (BuildContext context) {
+                      return MediaQuery(
+                        data: MediaQuery.of(context).copyWith(
+                          textScaleFactor:
+                              MediaQuery.of(context).size.width > 360
+                                  ? 1.0
+                                  : MediaQuery.of(context).size.width >= 340
+                                      ? 0.9
+                                      : 0.8,
+                        ),
+                        child: child!,
+                      );
+                    },
+                  ),
+                );
+              }),
+        );
+      },
     );
   }
 }

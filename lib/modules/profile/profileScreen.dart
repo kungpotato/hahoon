@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hahoon/stores/authStore.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -8,16 +12,40 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    final appText = AppLocalizations.of(context)!;
+    final authStore = Provider.of<AuthStore>(context, listen: false);
+
     return SafeArea(
-      child: Container(
-        child: Text('profile'),
+      child: Center(
+        child: Container(
+          child: Column(
+            children: [
+              Text(appText.helloWorld, style: TextStyle(fontSize: 30)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                      onPressed: () async {
+                        final prefs = await SharedPreferences.getInstance();
+                        prefs.setString('lang', 'en');
+                        AppLocalizations.delegate.load(Locale('en'));
+                        authStore.setLang('en');
+                      },
+                      child: Text('En')),
+                  TextButton(
+                      onPressed: () async {
+                        final prefs = await SharedPreferences.getInstance();
+                        prefs.setString('lang', 'th');
+                        AppLocalizations.delegate.load(Locale('th'));
+                        authStore.setLang('th');
+                      },
+                      child: Text('Th'))
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-//
   }
 }

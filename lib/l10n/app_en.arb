@@ -1,6 +1,10 @@
 {
-    "helloWorld": "Hello World!",
-    "@helloWorld": {
-      "description": "The conventional newborn programmer greeting"
-    }
+  "@@last_modified": "2021-08-10T17:54:21.395014",
+  "helloWorld": "Hello World",
+  "@helloWorld": {
+    "description": "Title for the Demo application",
+    "type": "text",
+    "placeholders_order": [],
+    "placeholders": {}
+  }
 }

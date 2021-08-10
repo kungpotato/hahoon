@@ -20,6 +20,9 @@ abstract class _AuthStore with Store {
   @observable
   User? fbUser;
 
+  @observable
+  String lang = 'en';
+
   Future<String> getFireBaseToken() async {
     final user = FirebaseAuth.instance.currentUser!;
     return await user.getIdToken(true);
@@ -32,6 +35,11 @@ abstract class _AuthStore with Store {
   @action
   void setDbUser(UserData? dbUser) {
     this.dbUser = dbUser;
+  }
+
+  @action
+  void setLang(String ln) {
+    lang = ln;
   }
 
   @action

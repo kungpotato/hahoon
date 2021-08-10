@@ -39,6 +39,21 @@ mixin _$AuthStore on _AuthStore, Store {
     });
   }
 
+  final _$langAtom = Atom(name: '_AuthStore.lang');
+
+  @override
+  String get lang {
+    _$langAtom.reportRead();
+    return super.lang;
+  }
+
+  @override
+  set lang(String value) {
+    _$langAtom.reportWrite(value, super.lang, () {
+      super.lang = value;
+    });
+  }
+
   final _$_AuthStoreActionController = ActionController(name: '_AuthStore');
 
   @override
@@ -47,6 +62,17 @@ mixin _$AuthStore on _AuthStore, Store {
         _$_AuthStoreActionController.startAction(name: '_AuthStore.setDbUser');
     try {
       return super.setDbUser(dbUser);
+    } finally {
+      _$_AuthStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setLang(String ln) {
+    final _$actionInfo =
+        _$_AuthStoreActionController.startAction(name: '_AuthStore.setLang');
+    try {
+      return super.setLang(ln);
     } finally {
       _$_AuthStoreActionController.endAction(_$actionInfo);
     }
@@ -67,7 +93,8 @@ mixin _$AuthStore on _AuthStore, Store {
   String toString() {
     return '''
 dbUser: ${dbUser},
-fbUser: ${fbUser}
+fbUser: ${fbUser},
+lang: ${lang}
     ''';
   }
 }

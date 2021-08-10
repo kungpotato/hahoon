@@ -4,6 +4,8 @@ import 'package:hahoon/appTheme.dart';
 import 'package:hahoon/modules/profile/profileScreen.dart';
 import 'package:hahoon/modules/test/testScreen.dart';
 
+enum BottomBarType { Test, Profile }
+
 class BottomTabScreen extends StatefulWidget {
   static const String path = '/bottomTabScreen';
   @override
@@ -16,35 +18,6 @@ class _BottomTabScreenState extends State<BottomTabScreen>
   bool isFirstTime = true;
   Widget indexView = Container();
   BottomBarType bottomBarType = BottomBarType.Test;
-
-  @override
-  void initState() {
-    _controller =
-        AnimationController(duration: Duration(milliseconds: 400), vsync: this);
-    indexView = Container();
-    WidgetsBinding.instance!.addPostFrameCallback((_) => _startLoadScreen());
-    super.initState();
-  }
-
-  Future<void> _startLoadScreen() async {
-    if (mounted)
-      setState(() {
-        isFirstTime = false;
-        indexView = TestScreen();
-      });
-    try {
-      await _controller!.forward();
-    } on TickerCanceled {
-      // the animation got canceled, probably because we were disposed
-      print('animation got canceled');
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller?.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,21 +38,10 @@ class _BottomTabScreenState extends State<BottomTabScreen>
     );
   }
 
-  void tabClick(BottomBarType tabType) {
-    if (tabType != bottomBarType) {
-      bottomBarType = tabType;
-      _controller!.reverse().then((f) {
-        if (tabType == BottomBarType.Test) {
-          setState(() {
-            indexView = TestScreen();
-          });
-        } else if (tabType == BottomBarType.Profile) {
-          setState(() {
-            indexView = ProfileScreen();
-          });
-        }
-      });
-    }
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
   }
 
   Widget getBottomBarUI(BottomBarType tabType) {
@@ -235,6 +197,44 @@ class _BottomTabScreenState extends State<BottomTabScreen>
       ),
     );
   }
-}
 
-enum BottomBarType { Test, Profile }
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(duration: Duration(milliseconds: 400), vsync: this);
+    indexView = Container();
+    WidgetsBinding.instance!.addPostFrameCallback((_) => _startLoadScreen());
+  }
+
+  void tabClick(BottomBarType tabType) {
+    if (tabType != bottomBarType) {
+      bottomBarType = tabType;
+      _controller!.reverse().then((f) {
+        if (tabType == BottomBarType.Test) {
+          setState(() {
+            indexView = TestScreen();
+          });
+        } else if (tabType == BottomBarType.Profile) {
+          setState(() {
+            indexView = ProfileScreen();
+          });
+        }
+      });
+    }
+  }
+
+  Future<void> _startLoadScreen() async {
+    if (mounted)
+      setState(() {
+        isFirstTime = false;
+        indexView = TestScreen();
+      });
+    try {
+      await _controller!.forward();
+    } on TickerCanceled {
+      // the animation got canceled, probably because we were disposed
+      print('animation got canceled');
+    }
+  }
+}

@@ -1,18 +1,17 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class MyLocalizations {
   MyLocalizations(this.localeName);
 
-  static Future<MyLocalizations> load(Locale locale) {
+  static MyLocalizations load(Locale locale) {
     final String name =
         locale.countryCode == null || locale.countryCode!.isEmpty
             ? locale.languageCode
             : locale.toString();
     final String localeName = Intl.canonicalizedLocale(name);
 
-    return SynchronousFuture<MyLocalizations>(MyLocalizations(localeName));
+    return MyLocalizations(localeName);
   }
 
   static MyLocalizations of(BuildContext context) {
@@ -29,22 +28,4 @@ class MyLocalizations {
       locale: localeName,
     );
   }
-}
-
-class MyLocalizationsDelegate extends LocalizationsDelegate<MyLocalizations> {
-  const MyLocalizationsDelegate();
-
-  @override
-  bool isSupported(Locale locale) => ['en', 'es'].contains(locale.languageCode);
-
-  @override
-  Future<MyLocalizations> load(Locale locale) {
-    // Returning a SynchronousFuture here because an async "load" operation
-    // isn't needed to produce an instance of DemoLocalizations.
-    return SynchronousFuture<MyLocalizations>(
-        MyLocalizations(locale.languageCode));
-  }
-
-  @override
-  bool shouldReload(MyLocalizationsDelegate old) => false;
 }

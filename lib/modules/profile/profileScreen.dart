@@ -28,7 +28,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onPressed: () async {
                         final prefs = await SharedPreferences.getInstance();
                         prefs.setString('lang', 'en');
-                        AppLocalizations.delegate.load(Locale('en'));
                         authStore.setLang('en');
                       },
                       child: Text('En')),
@@ -36,7 +35,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onPressed: () async {
                         final prefs = await SharedPreferences.getInstance();
                         prefs.setString('lang', 'th');
-                        AppLocalizations.delegate.load(Locale('th'));
                         authStore.setLang('th');
                       },
                       child: Text('Th'))
